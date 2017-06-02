@@ -1,0 +1,11 @@
+// APP ENTRY POINT. SETUP SERVER HERE.
+const http = require('http');
+const manager = require('../manager');
+
+const port = parseInt(process.env.PORT, 10) || 8000;
+manager.set('port', port);
+
+const server = http.createServer(manager);
+server.listen(port);
+
+
