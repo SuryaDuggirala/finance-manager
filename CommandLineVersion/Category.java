@@ -6,6 +6,7 @@ class Category {
     Category(String catName) {
         _catName = catName;
         totalExpense = 0;
+        expendituresByPlace = new HashMap<>();
     }
 
     void categoricalInsertion(String place, double price) {
@@ -18,15 +19,28 @@ class Category {
         totalExpense += price;
     }
 
-    void printExpendituresFrom(String place) {
+    String printExpendituresFrom(String place) {
         LinkedList<Double> prices = expendituresByPlace.get(place);
+        String finalString = "";
         if (prices != null) {
             for (Double price : prices) {
-                System.out.println("$" + price);
+                finalString += "$" + price + "\n";
             }
+            return finalString;
         } else {
-            System.out.println("No Expenditures at this venue.");
+            return "No Expenditures at this venue.";
         }
+    }
+
+    @Override
+    public String toString() {
+        String finalString = _catName + "\n";
+        for (String place : expendituresByPlace.keySet()) {
+            finalString += place + ": ";
+            finalString += printExpendituresFrom(place);
+        }
+        finalString += ("Total expenditures in this category: $" + totalExpense);
+        return finalString;
     }
 
     String _catName;

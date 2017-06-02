@@ -11,7 +11,10 @@ public class Analyze {
         return parseFile.costliestExpense();
     }
 
+    public static void main(String[] args) throws AnalyticsException {
+        Analyze analyze = new Analyze();
 
+    }
 
-    Parser parseFile;
+    static Parser parseFile;
 }
