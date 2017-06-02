@@ -1,0 +1,17 @@
+/**
+ * Created by Surya on 6/1/17.
+ */
+public class Analyze {
+    private final String FILENAME = "expenses.md";
+    public Analyze() throws  AnalyticsException {
+        parseFile = new Parser(FILENAME);
+    }
+
+    String costliestExpenditure() {
+        return parseFile.costliestExpense();
+    }
+
+
+
+    Parser parseFile;
+}
