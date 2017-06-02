@@ -54,8 +54,9 @@ class Parser {
         boolean toReturn = _categoryNames.contains(category);
         return toReturn;
     }
-    
+
     private boolean createCategory(String catName) {
+        catName = catName.toLowerCase();
         Category justAdded = new Category(catName);
         boolean exists = categoryExists(catName);
         _dataMap.put(catName, justAdded);
@@ -63,7 +64,10 @@ class Parser {
     }
 
     private boolean insertIntoCategory(String catName, String place, double price) {
+        place = place.toLowerCase();
+        catName = catName.toLowerCase();
         Category get = _dataMap.get(catName);
+        System.out.println(get == null);
         get.categoricalInsertion(place, price);
         return !(get == null);
     }
