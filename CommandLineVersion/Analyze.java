@@ -11,10 +11,11 @@ public class Analyze {
         return parseFile.costliestExpense();
     }
 
+    static Parser parseFile;
+
+    // ---- MAIN ---- //
     public static void main(String[] args) throws AnalyticsException {
         Analyze analyze = new Analyze();
-
+        System.out.println("IMPLEMENT INTERFACE.");
     }
-
-    static Parser parseFile;
 }

@@ -10,6 +10,14 @@ class Category {
     }
 
     void categoricalInsertion(String place, double price) {
+        // TAKE CARE OF CASE WHEN I DON'T ADD A PLACE
+        // ALSO NORMALIZE PLACE NAMES
+        if (place.equals(""))
+            place = "n/a";
+        else
+            place = place.toLowerCase();
+
+
         if (expendituresByPlace.containsKey(place)) {
             expendituresByPlace.get(place).add(price);
         } else {
@@ -29,6 +37,20 @@ class Category {
             return finalString;
         } else {
             return "No Expenditures at this venue.";
+        }
+    }
+
+    Double expensesAt(String place) throws AnalyticsException {
+        place = place.toLowerCase();
+        try {
+            LinkedList<Double> allExpenses = expendituresByPlace.get(place);
+            double total = 0.0;
+            for (Double price : allExpenses) {
+                total += price;
+            }
+            return total;
+        } catch (NullPointerException error) {
+            throw new AnalyticsException("You haven't visited this place.");
         }
     }
 

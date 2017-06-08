@@ -34,7 +34,9 @@ class Parser {
         }
     }
 
-
+    public void action(String behavior) {
+        return;
+    }
 
     // HELPER METHODS
     String costliestExpense() {
