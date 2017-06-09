@@ -5,9 +5,10 @@ import java.util.HashMap;
  * Created by Surya on 6/9/17.
  */
 public class CategoryDatabase {
+
     CategoryDatabase() {
         costliestCategory = null;
-        costliestPrice = Double.MIN_VALUE;
+        costliestPrice = -1.0;
         datMap = new HashMap<>();
         highestFrequency = Integer.MIN_VALUE;
         mostFrequentlyVisitedPlace = "";
@@ -24,6 +25,15 @@ public class CategoryDatabase {
             Category toAdd = new Category(category);
             toAdd.categoricalInsertion(place, price, description);
             datMap.put(category, toAdd);
+        }
+        Category justAdded = datMap.get(category);
+        if (justAdded.getTotalExpense() > costliestPrice) {
+            ArrayList<String> newCostliestCategory = new ArrayList<>();
+            newCostliestCategory.add(category);
+            costliestPrice = justAdded.getTotalExpense();
+            costliestCategory = newCostliestCategory;
+        } else if (justAdded.getTotalExpense() == costliestPrice) {
+            costliestCategory.add(category);
         }
         return categoryExists;
     }

@@ -2,7 +2,7 @@
  * Created by Surya on 6/1/17.
  */
 class Analyze {
-    private final String FILENAME = "expenses.md";
+    private final String FILENAME = "expenses.txt";
     public Analyze() throws  AnalyticsException {
         parseFile = new Parser(FILENAME);
         db = parseFile._dataMap;

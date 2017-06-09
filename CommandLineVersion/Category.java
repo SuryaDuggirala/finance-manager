@@ -14,6 +14,7 @@ class Category {
     }
 
     boolean categoricalInsertion(String place, double price, String description) {
+        totalExpense += price;
         if (expendituresByPlace.containsKey(place)) {
             Item newItem = new Item(price, description);
             LinkedList<Item> alreadyHere = expendituresByPlace.get(place);
@@ -60,6 +61,10 @@ class Category {
 
     String getMostCommonlyVisitedPlace() {
         return mostCommonlyVisitedPlace;
+    }
+
+    double getTotalExpense() {
+        return totalExpense;
     }
 
     @Override

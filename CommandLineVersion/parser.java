@@ -41,6 +41,7 @@ class Parser {
     private boolean add(String category, String place,
                 String description, double price) {
         // todo integrate category database
+        System.out.println("GETER");
         return _dataMap.addExpenditure(category, place,
                 description, price);
 
