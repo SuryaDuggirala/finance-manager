@@ -8,10 +8,35 @@ class Category {
         _catName = catName;
         totalExpense = 0;
         expendituresByPlace = new HashMap<>();
+        locationFrequency = new HashMap<>();
+        highestFrequencyByPlace = 0;
+        mostCommonlyVisitedPlace = "";
     }
 
-    void categoricalInsertion(String place, double price) {
-
+    boolean categoricalInsertion(String place, double price, String description) {
+        if (expendituresByPlace.containsKey(place)) {
+            Item newItem = new Item(price, description);
+            LinkedList<Item> alreadyHere = expendituresByPlace.get(place);
+            alreadyHere.add(newItem);
+            int frequency = locationFrequency.get(place);
+            locationFrequency.put(place, frequency++);
+            if (frequency > highestFrequencyByPlace) {
+                highestFrequencyByPlace = frequency;
+                mostCommonlyVisitedPlace = place;
+            }
+            return true;
+        } else {
+            LinkedList<Item> addTo = new LinkedList<>();
+            Item newItem = new Item(price, description);
+            addTo.add(newItem);
+            expendituresByPlace.put(place, addTo);
+            locationFrequency.put(place, 1);
+            if (highestFrequencyByPlace < 1) {
+                highestFrequencyByPlace = 1;
+                mostCommonlyVisitedPlace = place;
+            }
+            return false;
+        }
     }
 
     /** Returns the total expenditures from a particular location.
@@ -33,13 +58,24 @@ class Category {
         return totalPrice;
     }
 
+    String getMostCommonlyVisitedPlace() {
+        return mostCommonlyVisitedPlace;
+    }
+
     @Override
     public String toString() {
         return _catName + "\n" + String.valueOf(totalExpense);
     }
 
-    String _catName;
-    HashMap<String, LinkedList<Item>> expendituresByPlace;
-    double totalExpense;
-    PrintUtils printer;
+    private String _catName;
+    private HashMap<String, LinkedList<Item>> expendituresByPlace;
+    private double totalExpense;
+    private PrintUtils printer;
+
+
+    private HashMap<String, Integer> locationFrequency;
+
+    private int highestFrequencyByPlace;
+
+    private String mostCommonlyVisitedPlace;
 }

@@ -9,7 +9,7 @@ import java.util.Scanner;
     of tables. Essentially, I'm building a database of items for fun. */
 class Parser {
     Parser(String fileName) throws AnalyticsException {
-        _dataMap = new HashMap<>();
+        _dataMap = new CategoryDatabase();
         _toParse = new File(fileName);
         _categoryNames = new HashSet<>();
         try {
@@ -18,16 +18,17 @@ class Parser {
             while (scanFile.hasNextLine()) {
                 String category = "";
                 String place = "";
+                String description = "";
                 double price = 0.0;
 
                 category = scanFile.nextLine();
                 place = scanFile.nextLine();
+                description = scanFile.nextLine();
                 price = Double.parseDouble(scanFile.nextLine());
 
-                if (!categoryExists(category)) {
-                    createCategory(category);
-                }
-                insertIntoCategory(category, place, price);
+                add(category, place,
+                        description, price);
+
             }
         } catch (FileNotFoundException file) {
             throw new AnalyticsException("File not found.");
@@ -35,45 +36,18 @@ class Parser {
     }
 
 
-
     // HELPER METHODS
-    String costliestExpense() {
-        double expense = Double.MIN_VALUE;
-        String category = "";
-        for (String cat : _dataMap.keySet()) {
-            if (_dataMap.get(cat).totalExpense > expense) {
-                expense = _dataMap.get(cat).totalExpense;
-                category = cat;
-            }
-        }
-        return _dataMap.get(category)._catName;
-    }
 
-    private boolean categoryExists(String category) {
-        category = category.toLowerCase();
-        boolean toReturn = _categoryNames.contains(category);
-        return toReturn;
-    }
+    private boolean add(String category, String place,
+                String description, double price) {
+        // todo integrate category database
+        return _dataMap.addExpenditure(category, place,
+                description, price);
 
-    private boolean createCategory(String catName) {
-        catName = catName.toLowerCase();
-        Category justAdded = new Category(catName);
-        boolean exists = categoryExists(catName);
-        _dataMap.put(catName, justAdded);
-        return exists;
-    }
-
-    private boolean insertIntoCategory(String catName, String place, double price) {
-        place = place.toLowerCase();
-        catName = catName.toLowerCase();
-        Category get = _dataMap.get(catName);
-        System.out.println(get == null);
-        get.categoricalInsertion(place, price);
-        return !(get == null);
     }
 
     /** Contains mappings from names of categories to Categories. */
-    HashMap<String, Category> _dataMap;
+    static CategoryDatabase _dataMap;
 
     /** The target file containing my expenses. */
     File _toParse;
