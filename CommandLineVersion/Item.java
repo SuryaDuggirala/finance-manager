@@ -15,6 +15,13 @@ public class Item {
         return description;
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(price)
+                + "\n" + description;
+
+    }
+
     String description;
     Double price;
 }

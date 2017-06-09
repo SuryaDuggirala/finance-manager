@@ -4,46 +4,42 @@ import java.util.LinkedList;
 class Category {
 
     Category(String catName) {
+        printer = new PrintUtils();
         _catName = catName;
         totalExpense = 0;
         expendituresByPlace = new HashMap<>();
     }
 
     void categoricalInsertion(String place, double price) {
-        if (expendituresByPlace.containsKey(place)) {
-            expendituresByPlace.get(place).add(price);
-        } else {
-            expendituresByPlace.put(place, new LinkedList<>());
-            expendituresByPlace.get(place).add(price);
-        }
-        totalExpense += price;
+
     }
 
-    String printExpendituresFrom(String place) {
-        LinkedList<Double> prices = expendituresByPlace.get(place);
-        String finalString = "";
-        if (prices != null) {
-            for (Double price : prices) {
-                finalString += "$" + price + "\n";
+    /** Returns the total expenditures from a particular location.
+     *  It also prints out the individual expenses along with descriptions.
+     *  @param place is the place in question.
+     *  @param printAll a utility boolean. Just for convenience. */
+    Double printExpendituresFrom(String place, boolean printAll) {
+        printer.print(place);
+        printer.printMajorBoundary();
+        LinkedList<Item> allItems = expendituresByPlace.get(place);
+        double totalPrice = 0;
+        for (Item i : allItems) {
+            totalPrice += i.getPrice();
+            if (printAll) {
+                printer.print(i);
+                printer.printMinorBoundary();
             }
-            return finalString;
-        } else {
-            return "No Expenditures at this venue.";
         }
+        return totalPrice;
     }
 
     @Override
     public String toString() {
-        String finalString = _catName + "\n";
-        for (String place : expendituresByPlace.keySet()) {
-            finalString += place + ": ";
-            finalString += printExpendituresFrom(place);
-        }
-        finalString += ("Total expenditures in this category: $" + totalExpense);
-        return finalString;
+        return _catName + "\n" + String.valueOf(totalExpense);
     }
 
     String _catName;
-    HashMap<String, LinkedList<Double>> expendituresByPlace;
+    HashMap<String, LinkedList<Item>> expendituresByPlace;
     double totalExpense;
+    PrintUtils printer;
 }
