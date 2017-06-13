@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Created by Surya on 6/9/17.
@@ -10,7 +11,8 @@ public class CategoryDatabase {
         costliestCategory = null;
         costliestPrice = -1.0;
         datMap = new HashMap<>();
-        highestFrequency = Integer.MIN_VALUE;
+        highestCategoryFrequency = -1;
+        highestPlaceFrequency = -1;
         mostFrequentlyVisitedPlace = "";
     }
 
@@ -27,6 +29,10 @@ public class CategoryDatabase {
             datMap.put(category, toAdd);
         }
         Category justAdded = datMap.get(category);
+        if (justAdded.getHighestFrequencyByPlace() > highestPlaceFrequency) {
+            highestPlaceFrequency = justAdded.getHighestFrequencyByPlace();
+            mostFrequentlyVisitedPlace = justAdded.getMostCommonlyVisitedPlace();
+        }
         if (justAdded.getTotalExpense() > costliestPrice) {
             ArrayList<String> newCostliestCategory = new ArrayList<>();
             newCostliestCategory.add(category);
@@ -50,7 +56,22 @@ public class CategoryDatabase {
         return datMap.get(cat);
     }
 
+    Category containsPlace(String place) {
+        return places.get(place);
+    }
 
+    String print() {
+        double total = 0;
+        for (String cat : datMap.keySet()) {
+            System.out.println("CATEGORY: " + cat);
+            System.out.println("--------------");
+            Category catPrint = datMap.get(cat);
+            catPrint.printAllExpenditures();
+            total += catPrint.getTotalExpense();
+        }
+        System.out.println("TOTAL EXPENDITURES: " + total);
+        return "";
+    }
 
     HashMap<String, Category> datMap;
 
@@ -58,7 +79,13 @@ public class CategoryDatabase {
 
     double costliestPrice;
 
-    int highestFrequency;
+    int highestCategoryFrequency;
+
+    int highestPlaceFrequency;
 
     String mostFrequentlyVisitedPlace;
+
+    HashMap<String, Category> places;
+
+
 }

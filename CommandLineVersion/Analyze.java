@@ -1,3 +1,6 @@
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by Surya on 6/1/17.
  */
@@ -10,7 +13,44 @@ class Analyze {
     }
 
     public Object commandInterface(String command) {
-        return costliestExpense();
+        command = command.toLowerCase();
+        if (command.equals("print")) {
+            printTransactionHistory();
+        } else if (command.equals("highest cost place")) {
+            mostCommonlyVisitedPlace();
+        } else if (command.equals("lowest cost place")) {
+            return "YOUR CODE HERE!";
+        } else if (command.equals("highest cost category")) {
+            return costliestExpense();
+        } else if (command.equals("lowest cost category")) {
+            return "YOUR CODE HERE!";
+        } else if (command.equals("in budget")) {
+            return "YOUR CODE HERE!";
+        } else if (command.equals("budget")) {
+            return "YOUR CODE HERE!";
+        } else if (command.equals("trends")) {
+            // TODO ADD TREND FUNCTIONALITY
+            if (false) {
+                categoricalTrendMap(null);
+            } else if (false) {
+                trendMapByPlace(null);
+            } else if (false) {
+                moneySpentOn(null);
+            } else if (false) {
+                cumulativeTrendMap();
+            } else if (false) {
+                moneySpentSince(null);
+            }
+        } else if (command.equals("plan my month")) {
+
+        } else if (command.equals("bank balance")) {
+
+        } else if (command.equals("total")) {
+            return totalExpenditures();
+        } else {
+            System.out.println("Invalid command.");
+        }
+        return null;
     }
 
     String costliestExpense() {
@@ -18,7 +58,7 @@ class Analyze {
     }
 
     String mostCommonlyVisitedPlace() {
-        return "";
+        return db.mostFrequentlyVisitedPlace;
     }
 
     String mostCommonlyVisitedPlaceByCategory(String category) {
@@ -31,7 +71,7 @@ class Analyze {
     }
 
     void printTransactionHistory() {
-        return;
+        db.print();
     }
 
     double totalExpenditures() {
@@ -61,5 +101,6 @@ class Analyze {
 
 
     static Parser parseFile;
+
     CategoryDatabase db;
 }

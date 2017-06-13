@@ -40,6 +40,13 @@ class Category {
         }
     }
 
+    Double printAllExpenditures() {
+        for (String place : expendituresByPlace.keySet()) {
+            printExpendituresFrom(place, true);
+        }
+        return totalExpense;
+    }
+
     /** Returns the total expenditures from a particular location.
      *  It also prints out the individual expenses along with descriptions.
      *  @param place is the place in question.
@@ -49,13 +56,20 @@ class Category {
         printer.printMajorBoundary();
         LinkedList<Item> allItems = expendituresByPlace.get(place);
         double totalPrice = 0;
-        for (Item i : allItems) {
-            totalPrice += i.getPrice();
+        for (int i = 0; i < allItems.size() - 1; i++) {
+            Item item = allItems.get(i);
+            totalPrice += item.getPrice();
             if (printAll) {
-                printer.print(i);
+                printer.print(item);
                 printer.printMinorBoundary();
             }
         }
+        Item lastItem = allItems.get(allItems.size() - 1);
+        totalPrice += lastItem.getPrice();
+        if (printAll) {
+            printer.print(lastItem);
+        }
+        printer.printMajorBoundary();
         return totalPrice;
     }
 
@@ -67,14 +81,21 @@ class Category {
         return totalExpense;
     }
 
+    int getHighestFrequencyByPlace() {
+        return highestFrequencyByPlace;
+    }
+
     @Override
     public String toString() {
         return _catName + "\n" + String.valueOf(totalExpense);
     }
 
     private String _catName;
+
     private HashMap<String, LinkedList<Item>> expendituresByPlace;
+
     private double totalExpense;
+
     private PrintUtils printer;
 
 

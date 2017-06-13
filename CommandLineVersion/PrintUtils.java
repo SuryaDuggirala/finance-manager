@@ -9,7 +9,7 @@ public class PrintUtils {
     }
 
     public void printMajorBoundary() {
-        System.out.println("=========\n#########\n=========");
+        System.out.println("=========");
     }
 
     public void printMinorBoundary() {
