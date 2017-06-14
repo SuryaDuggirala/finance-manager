@@ -75,7 +75,7 @@ class Analyze {
     }
 
     double totalExpenditures() {
-        return 0.0;
+        return db.totalCost;
     }
 
     double moneySpentSince(String date) {

@@ -14,11 +14,13 @@ public class CategoryDatabase {
         highestCategoryFrequency = -1;
         highestPlaceFrequency = -1;
         mostFrequentlyVisitedPlace = "";
+        totalCost = 0;
     }
 
 
     boolean addExpenditure(String category, String place,
                            String description, double price) {
+        totalCost += price;
         boolean categoryExists = datMap.containsKey(category);
         if (categoryExists) {
             Category toManipulate = datMap.get(category);
@@ -60,6 +62,10 @@ public class CategoryDatabase {
         return places.get(place);
     }
 
+    double getTotalCost() {
+        return totalCost;
+    }
+
     String print() {
         double total = 0;
         for (String cat : datMap.keySet()) {
@@ -86,6 +92,8 @@ public class CategoryDatabase {
     String mostFrequentlyVisitedPlace;
 
     HashMap<String, Category> places;
+
+    double totalCost;
 
 
 }

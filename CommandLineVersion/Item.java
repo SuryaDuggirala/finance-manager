@@ -5,6 +5,7 @@ import java.util.Date;
  * Created by Surya on 6/9/17.
  */
 public class Item {
+
     public Item(Double price, String description) {
         this.price = price;
         this.description = description;

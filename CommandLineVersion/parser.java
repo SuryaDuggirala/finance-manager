@@ -12,6 +12,7 @@ class Parser {
         _dataMap = new CategoryDatabase();
         _toParse = new File(fileName);
         _categoryNames = new HashSet<>();
+        _totalCost = 0;
         try {
             Scanner scanFile = new Scanner(_toParse);
             int marker = 0;
@@ -41,6 +42,7 @@ class Parser {
     private boolean add(String category, String place,
                 String description, double price) {
         // todo integrate category database
+        _totalCost += price;
         return _dataMap.addExpenditure(category, place,
                 description, price);
 
@@ -53,4 +55,6 @@ class Parser {
     File _toParse;
 
     HashSet<String> _categoryNames;
+
+    double _totalCost;
 }
