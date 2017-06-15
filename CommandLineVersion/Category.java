@@ -1,5 +1,7 @@
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
+
 
 class Category {
 
@@ -10,7 +12,9 @@ class Category {
         expendituresByPlace = new HashMap<>();
         locationFrequency = new HashMap<>();
         highestFrequencyByPlace = 0;
+        lowestFrequencyByPlace = 0;
         mostCommonlyVisitedPlace = "";
+        leastCommonlyVisitedPlace = "";
     }
 
     boolean categoricalInsertion(String place, double price, String description) {
@@ -21,6 +25,7 @@ class Category {
             alreadyHere.add(newItem);
             int frequency = locationFrequency.get(place);
             locationFrequency.put(place, frequency++);
+
             if (frequency > highestFrequencyByPlace) {
                 highestFrequencyByPlace = frequency;
                 mostCommonlyVisitedPlace = place;
@@ -40,6 +45,10 @@ class Category {
         }
     }
 
+
+
+
+
     Double printAllExpenditures() {
         for (String place : expendituresByPlace.keySet()) {
             printExpendituresFrom(place, true);
@@ -52,8 +61,7 @@ class Category {
      *  @param place is the place in question.
      *  @param printAll a utility boolean. Just for convenience. */
     Double printExpendituresFrom(String place, boolean printAll) {
-        printer.print(place);
-        printer.printMajorBoundary();
+        printer.printDelineation(place);
         LinkedList<Item> allItems = expendituresByPlace.get(place);
         double totalPrice = 0;
         for (int i = 0; i < allItems.size() - 1; i++) {
@@ -63,6 +71,7 @@ class Category {
                 printer.print(item);
                 printer.printMinorBoundary();
             }
+            System.out.println("\n");
         }
         Item lastItem = allItems.get(allItems.size() - 1);
         totalPrice += lastItem.getPrice();
@@ -70,6 +79,7 @@ class Category {
             printer.print(lastItem);
         }
         printer.printMajorBoundary();
+        System.out.println("\n");
         return totalPrice;
     }
 
@@ -104,4 +114,12 @@ class Category {
     private int highestFrequencyByPlace;
 
     private String mostCommonlyVisitedPlace;
+
+    private int lowestFrequencyByPlace;
+
+    private String leastCommonlyVisitedPlace;
+
+    PriorityQueue<Item> itemsQueue;
+
+    PriorityQueue<Item> placesQueue;
 }

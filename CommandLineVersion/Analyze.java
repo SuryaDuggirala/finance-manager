@@ -9,15 +9,18 @@ class Analyze {
     public Analyze() throws  AnalyticsException {
         parseFile = new Parser(FILENAME);
         db = parseFile._dataMap;
+        printer = new PrintUtils();
 
     }
 
+
+    // TODO: I NEED TO INSERT ALL OF THESE THINGS INTO ARRAYLISTS
     public Object commandInterface(String command) {
         command = command.toLowerCase();
         if (command.equals("print")) {
-            printTransactionHistory();
-        } else if (command.equals("highest cost place")) {
-            mostCommonlyVisitedPlace();
+            return printTransactionHistory();
+        } else if (command.equals("hcp")) {
+            return mostCommonlyVisitedPlace();
         } else if (command.equals("lowest cost place")) {
             return "YOUR CODE HERE!";
         } else if (command.equals("highest cost category")) {
@@ -47,6 +50,8 @@ class Analyze {
 
         } else if (command.equals("total")) {
             return totalExpenditures();
+        } else if (command.equals("insert")) {
+          return insertIntoDB();
         } else {
             System.out.println("Invalid command.");
         }
@@ -70,8 +75,9 @@ class Analyze {
         }
     }
 
-    void printTransactionHistory() {
+    String printTransactionHistory() {
         db.print();
+        return "";
     }
 
     double totalExpenditures() {
@@ -98,9 +104,13 @@ class Analyze {
         return;
     }
 
-
+    String insertIntoDB() {
+        return "";
+    }
 
     static Parser parseFile;
 
     CategoryDatabase db;
+
+    PrintUtils printer;
 }

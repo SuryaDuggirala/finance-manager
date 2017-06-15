@@ -15,8 +15,8 @@ public class CategoryDatabase {
         highestPlaceFrequency = -1;
         mostFrequentlyVisitedPlace = "";
         totalCost = 0;
+        printer = new PrintUtils();
     }
-
 
     boolean addExpenditure(String category, String place,
                            String description, double price) {
@@ -69,8 +69,7 @@ public class CategoryDatabase {
     String print() {
         double total = 0;
         for (String cat : datMap.keySet()) {
-            System.out.println("CATEGORY: " + cat);
-            System.out.println("--------------");
+            printer.printCategory(cat.toUpperCase());
             Category catPrint = datMap.get(cat);
             catPrint.printAllExpenditures();
             total += catPrint.getTotalExpense();
@@ -95,5 +94,5 @@ public class CategoryDatabase {
 
     double totalCost;
 
-
+    PrintUtils printer;
 }

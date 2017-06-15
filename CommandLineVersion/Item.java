@@ -4,7 +4,7 @@ import java.util.Date;
 /**
  * Created by Surya on 6/9/17.
  */
-public class Item {
+public class Item implements Comparable {
 
     public Item(Double price, String description) {
         this.price = price;
@@ -52,7 +52,17 @@ public class Item {
         };
     }
 
-
+    @Override
+    public int compareTo(Object o) {
+        Item other = (Item) o;
+        if (price > other.price) {
+            return 1;
+        } else if (price < other.price) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
 
     Double getPrice() {
         return price;
@@ -66,7 +76,6 @@ public class Item {
     public String toString() {
         return description
                 + "\n" + String.valueOf(price);
-
     }
 
     String description;
